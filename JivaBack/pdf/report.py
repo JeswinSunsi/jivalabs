@@ -100,7 +100,7 @@ def create_report(detected,pitch,intensity,f1,f2,f3):
 
        
         elements.append(Paragraph('Patient Information', section_style))
-        elements.append(Paragraph(f'Analysis Date: 18-03-26', normal_style))
+        elements.append(Paragraph(f'Analysis Date: 07-04-26', normal_style))
         elements.append(Paragraph(f'Parkinson\'s Probability: {detected}',normal_style))
 
     

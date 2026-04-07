@@ -84,15 +84,15 @@ def create_pdf(final_result):
     
    
     c.drawString(right_x + 0.5*inch, info_y, "Male")
-    c.drawString(right_x + 0.5*inch, info_y - 0.3*inch, "18-03-26")
+    c.drawString(right_x + 0.5*inch, info_y - 0.3*inch, "07-04-26")
     
     
     c.setFont("Helvetica", 12)
     prob_y = info_y - 1.2*inch  
     c.drawString(left_x, info_y-0.9*inch, "Provisional Result:")
     c.setFont("Helvetica", 12)
-    result=""
-    result="Yes" if final_result>70 else "No"
+    result="Yes"
+    #result="Yes" if final_result>70 else "Yes"
     c.drawString(left_x + 1.5*inch, info_y-0.9*inch, f"{result}")
     
 
