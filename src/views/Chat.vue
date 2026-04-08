@@ -6,6 +6,7 @@
           <div class="logo">Jiva<span style="font-weight: 400;">lab</span></div>
         </span>
         <div class="header-icons">
+          <LanguageSwitcher />
           <div class="notification-icon">
             <img src="../assets/chat.png" alt="Notifications" class="icon-placeholder" @click="$router.push('/chat')">
           </div>
@@ -15,7 +16,7 @@
         </div>
       </header>
       <div class="notice-wrapper">
-        <h3>Welcome to Jivalab's Personal Healthcare assistant. Stay mindful and secure.</h3>
+        <h3>{{ t('chat.notice') }}</h3>
       </div>
       <div class="messages-container" ref="messagesContainerRef">
         <div v-for="(message, index) in messages" :key="index" 
@@ -26,7 +27,7 @@
         </div>
         <div v-if="isLoading" class="message received">
           <div class="message-bubble">
-            <div class="message-text loading">...</div>
+            <div class="message-text loading">{{ t('chat.loading') }}</div>
           </div>
         </div>
       </div>
@@ -34,7 +35,7 @@
       <div class="input-container">
         <textarea 
           v-model="newMessage" 
-          placeholder="Type a message..." 
+          :placeholder="t('chat.placeholder')" 
           @keydown.enter.prevent="sendMessage"
           class="message-input"
           :disabled="isLoading"
@@ -44,7 +45,7 @@
           @click="sendMessage" 
           :disabled="!newMessage.trim() || isLoading"
         >
-          Send
+          {{ t('chat.send') }}
         </button>
       </div>
     </div>
@@ -52,6 +53,10 @@
   
   <script setup>
   import { ref, onMounted, watch, nextTick } from 'vue';
+  import { useI18n } from 'vue-i18n';
+  import LanguageSwitcher from '../components/LanguageSwitcher.vue';
+
+  const { t } = useI18n();
   
   const props = defineProps({
     chatName: {
@@ -81,7 +86,6 @@
       messages.value.push(userMessage);
       emit('message-sent', userMessage);
       
-      const messageText = newMessage.value;
       newMessage.value = '';
       scrollToBottom();
       
@@ -112,7 +116,7 @@
       } catch (error) {
         console.error('Error sending message:', error);
         messages.value.push({
-          text: 'Sorry, there was an error sending your message. Please try again.',
+          text: t('chat.sendError'),
           sender: 'bot'
         });
       } finally {

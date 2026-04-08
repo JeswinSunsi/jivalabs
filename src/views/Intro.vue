@@ -1,10 +1,14 @@
 <template>
     <div class="health-answers">
       <div class="content-container">
+        <div class="intro-actions">
+          <LanguageSwitcher />
+        </div>
+
         <div class="header-section">
-          <h1 class="main-title">Health Answers,</h1>
-          <h2 class="subtitle">Without The Waiting Room</h2>
-          <p class="tagline">Accessible healthcare at your fingertips</p>
+          <h1 class="main-title">{{ t('intro.title') }}</h1>
+          <h2 class="subtitle">{{ t('intro.subtitle') }}</h2>
+          <p class="tagline">{{ t('intro.tagline') }}</p>
         </div>
   
         <div class="illustration-section">
@@ -20,40 +24,24 @@
         <div class="conditions-section">
           <div class="scrolling-container">
             <div class="condition-row row-1">
-              <button class="condition-button">Pneumonia</button>
-            <button class="condition-button">Parkinson's Syndrome</button>
-            <button class="condition-button">Brain Tumor</button>
-            <button class="condition-button">Lateral Sclerosis</button>
-            <button class="condition-button">Pneumonia</button>
-              <!-- Duplicate buttons for continuous scrolling effect -->
-              <button class="condition-button">Pneumonia</button>
-              <button class="condition-button">Parkinson's Syndrome</button>
-              <button class="condition-button">Brain Tumor</button>
-              <button class="condition-button">Lateral Sclerosis</button>
-              <button class="condition-button">Pneumonia</button>
+              <button v-for="(condition, index) in rowOneConditions" :key="`row-one-${index}`" class="condition-button">
+                {{ t(`intro.conditions.${condition}`) }}
+              </button>
             </div>
           </div>
           
           <div class="scrolling-container">
             <div class="condition-row row-2">
-              <button class="condition-button">Bronchiolitis</button>
-              <button class="condition-button">COPD</button>
-              <button class="condition-button">Dysarthia</button>
-              <button class="condition-button">Lung Cancer</button>
-              <button class="condition-button">Heart Disease</button>
-              <!-- Duplicate buttons for continuous scrolling effect -->
-              <button class="condition-button">Bronchiolitis</button>
-              <button class="condition-button">COPD</button>
-              <button class="condition-button">Dysarthia</button>
-              <button class="condition-button">Lung Cancer</button>
-              <button class="condition-button">Heart Disease</button>
+              <button v-for="(condition, index) in rowTwoConditions" :key="`row-two-${index}`" class="condition-button">
+                {{ t(`intro.conditions.${condition}`) }}
+              </button>
             </div>
           </div>
         </div>
   
         <div class="cta-section">
           <button class="analyze-button" @click="$router.push('/home')">
-            Analyze Now
+            {{ t('intro.analyzeNow') }}
             <span class="arrow-icon">→</span>
           </button>
         </div>
@@ -62,6 +50,17 @@
   </template>
   
   <script setup>
+  import { computed } from 'vue';
+  import { useI18n } from 'vue-i18n';
+  import LanguageSwitcher from '../components/LanguageSwitcher.vue';
+
+  const { t } = useI18n();
+
+  const rowOneBase = ['pneumonia', 'parkinsons', 'brainTumor', 'lateralSclerosis', 'pneumonia'];
+  const rowTwoBase = ['bronchiolitis', 'copd', 'dysarthria', 'lungCancer', 'heartDisease'];
+
+  const rowOneConditions = computed(() => [...rowOneBase, ...rowOneBase]);
+  const rowTwoConditions = computed(() => [...rowTwoBase, ...rowTwoBase]);
   </script>
   
   <style scoped>
@@ -90,6 +89,12 @@
     flex-direction: column;
     position: relative;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .intro-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 1.5rem 0;
   }
   
   .header-section {

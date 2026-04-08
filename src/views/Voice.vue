@@ -6,6 +6,7 @@
         <div class="logo">Jiva<span style="font-weight: 400;">lab</span></div>
       </span>
       <div class="header-icons">
+        <LanguageSwitcher />
         <div class="notification-icon">
           <img src="../assets/chat.png" alt="Notifications" class="icon-placeholder" @click="$router.push('/chat')">
         </div>
@@ -23,15 +24,14 @@
         </div>
       </div>
 
-      <h2 class="title">Voice Analysis Instructions</h2>
+      <h2 class="title">{{ t('voice.title') }}</h2>
       <div class="instructions-list">
         <div class="instruction-item" v-motion
           :initial="{ x: -50, opacity: 0 }"
           :enter="{ x: 0, opacity: 1, transition: { delay: 100 } }">
           <div class="instruction-number">1</div>
           <div class="instruction-text">
-            <p style="color: #0896B6;">Find a quiet environment <span class="highlight">with minimal background
-                noise</span></p>
+            <p style="color: #0896B6;">{{ t('voice.instruction1') }} <span class="highlight">{{ t('voice.instruction1Highlight') }}</span></p>
           </div>
         </div>
 
@@ -40,7 +40,7 @@
           :enter="{ x: 0, opacity: 1, transition: { delay: 300 } }">
           <div class="instruction-number">2</div>
           <div class="instruction-text">
-            <p style="color: #0896B6;">Hold your device <span class="highlight">about 6 inches from your mouth</span>
+            <p style="color: #0896B6;">{{ t('voice.instruction2') }} <span class="highlight">{{ t('voice.instruction2Highlight') }}</span>
             </p>
           </div>
         </div>
@@ -50,8 +50,7 @@
           :enter="{ x: 0, opacity: 1, transition: { delay: 500 } }">
           <div class="instruction-number">3</div>
           <div class="instruction-text">
-            <p style="color: #0896B6;">Read the provided text clearly <span class="highlight">at your normal speaking
-                pace</span></p>
+            <p style="color: #0896B6;">{{ t('voice.instruction3') }} <span class="highlight">{{ t('voice.instruction3Highlight') }}</span></p>
           </div>
         </div>
       </div>
@@ -85,7 +84,7 @@
         @click="toggleRecording" 
         v-show="!hasRecorded"
       >
-        {{ isRecording ? 'Recording...' : "I'm ready" }}
+        {{ isRecording ? t('voice.recording') : t('voice.ready') }}
       </button>
 
     </div>
@@ -93,7 +92,7 @@
 
     <Transition name="slide-up">
       <div class="next-btn" v-if="hasRecorded" @click="goToNextPrompt" :class="{ loading: PDFLoading }">
-        CONTINUE
+        {{ t('voice.continue') }}
       </div>
     </Transition>
   </div>
@@ -102,9 +101,12 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute } from "vue-router";
+import { useI18n } from 'vue-i18n';
+import LanguageSwitcher from '../components/LanguageSwitcher.vue';
 
 const route = useRoute();
 const disease = route.params.disease;
+const { t } = useI18n();
 
 const isRecording = ref(false);
 const hasRecorded = ref(false);
@@ -206,7 +208,7 @@ const setupSpeechRecognition = () => {
       console.error('Speech recognition error:', event.error);
     };
   } else {
-    alert('Your browser does not support speech recognition. Please try a different browser.');
+    alert(t('voice.unsupportedSpeech'));
   }
 };
 
@@ -280,7 +282,7 @@ const setupAudioRecording = async () => {
     return true;
   } catch (error) {
     console.error('Error accessing microphone:', error);
-    alert('Unable to access your microphone. Please check permissions and try again.');
+    alert(t('voice.microphoneDenied'));
     return false;
   }
 };
@@ -383,11 +385,11 @@ const submitRecording = async () => {
     } else {
       const errorText = await response.text();
       console.error('Failed to submit recording:', errorText);
-      alert('Failed to submit recording: ' + errorText);
+      alert(`${t('voice.submitFailed')}: ${errorText}`);
     }
   } catch (error) {
     console.error('Error submitting recording:', error);
-    alert('Error submitting recording. Please check your connection and try again.');
+    alert(t('voice.submitError'));
   }
 };
 </script>

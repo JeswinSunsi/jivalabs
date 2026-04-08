@@ -3,6 +3,7 @@
     <header class="header">
       <div class="logo">Jiva<span style="font-weight: 400;">lab</span></div>
       <div class="header-icons">
+        <LanguageSwitcher />
         <div class="notification-icon">
           <img src="../assets/chat.png" alt="Notifications" class="icon-placeholder" @click="$router.push('/chat')">
         </div>
@@ -16,52 +17,56 @@
       <section class="hero-section">
         <h1 class="hero-title">
           <span class="title-black" :class="fadeClass">{{ currentDisease }},</span>
-          <span class="title-teal">Checked Simply</span>
+          <span class="title-teal">{{ t('home.heroSuffix') }}</span>
         </h1>
         <p class="hero-description">
-          Let's be honest - getting good healthcare isn't always easy. For too many of us, seeing a doctor means taking.
-          <span class="read-more">Read More</span>
+          {{ t('home.description') }}
+          <span class="read-more">{{ t('home.readMore') }}</span>
         </p>
       </section>
 
       <section class="info-cards">
-        <img src="../assets/button1.png" alt="diagnose" @click="$router.push('/scan/pneumonia')">
-        <img src="../assets/button2.png" alt="detect" @click="$router.push('/voice/park')">
+        <img src="../assets/button1.png" :alt="t('home.tests.pneumonia')" @click="$router.push('/scan/pneumonia')">
+        <img src="../assets/button2.png" :alt="t('home.tests.parkinsons')" @click="$router.push('/voice/park')">
       </section>
 
       <section class="recommended-tests">
-        <h2 class="section-title">Recommended Tests</h2>
+        <h2 class="section-title">{{ t('home.recommendedTests') }}</h2>
         <div class="test-tags">
-          <span class="test-tag" @click="$router.push('/scan/pneumonia')" v-motion :initial="{ opacity: 0 }" :enter="{ opacity: 1, scale: [1, 1.05, 1], transition: { delay: 100, duration: 500 } }">Pneumonia</span>
-          <span class="test-tag" @click="$router.push('/voice/park')" v-motion :initial="{ opacity: 0 }" :enter="{ opacity: 1, scale: [1, 1.05, 1], transition: { delay: 300, duration: 500 } }">Parkinson's Syndrome</span>
-          <span class="test-tag" @click="$router.push('/scan/braintumor')" v-motion :initial="{ opacity: 0 }" :enter="{ opacity: 1, scale: [1, 1.05, 1], transition: { delay: 500, duration: 500 } }">Brain Tumor</span>
-          <span class="test-tag" @click="$router.push('/voice/als')" v-motion :initial="{ opacity: 0 }" :enter="{ opacity: 1, scale: [1, 1.05, 1], transition: { delay: 700, duration: 500 } }">Lateral Sclerosis</span>
-          <span class="test-tag" @click="$router.push('/voice/dysarthria')" v-motion :initial="{ opacity: 0 }" :enter="{ opacity: 1, scale: [1, 1.05, 1], transition: { delay: 900, duration: 500 } }">Dysarthia</span>
-          <span class="test-tag" v-motion :initial="{ opacity: 0 }" :enter="{ opacity: 1, scale: [1, 1.05, 1], transition: { delay: 1100, duration: 500 } }">Fibrosis</span>
-          <span class="test-tag" v-motion :initial="{ opacity: 0 }" :enter="{ opacity: 1, scale: [1, 1.05, 1], transition: { delay: 1300, duration: 500 } }">Lung Cancer</span>
-          <span class="test-tag" v-motion :initial="{ opacity: 0 }" :enter="{ opacity: 1, scale: [1, 1.05, 1], transition: { delay: 1400, duration: 500 } }">Pneumothorax</span>
+          <span
+            v-for="test in testItems"
+            :key="test.key"
+            class="test-tag"
+            :class="{ 'tag-disabled': !test.route }"
+            @click="test.route && $router.push(test.route)"
+            v-motion
+            :initial="{ opacity: 0 }"
+            :enter="{ opacity: 1, scale: [1, 1.05, 1], transition: { delay: test.delay, duration: 500 } }"
+          >
+            {{ t(`home.tests.${test.key}`) }}
+          </span>
         </div>
       </section>
 
       <section class="recent-insights">
-        <h2 class="section-title">Recent Insights</h2>
+        <h2 class="section-title">{{ t('home.recentInsights') }}</h2>
         <div class="insight-item">
           <div class="insight-info">
-            <h3 class="insight-title">Respiratory Analysis</h3>
-            <p class="insight-date">2 days ago</p>
+            <h3 class="insight-title">{{ t('home.insights.respiratoryAnalysis') }}</h3>
+            <p class="insight-date">{{ t('home.insights.twoDaysAgo') }}</p>
           </div>
           <div class="insight-status">
-            <span class="status-text">Normal</span>
+            <span class="status-text">{{ t('home.insights.normal') }}</span>
             <span class="status-indicator green"></span>
           </div>
         </div>
         <div class="insight-item">
           <div class="insight-info">
-            <h3 class="insight-title">Torso XRay Analysis</h3>
-            <p class="insight-date">1 week ago</p>
+            <h3 class="insight-title">{{ t('home.insights.torsoXrayAnalysis') }}</h3>
+            <p class="insight-date">{{ t('home.insights.oneWeekAgo') }}</p>
           </div>
           <div class="insight-status">
-            <span class="status-text">Attention</span>
+            <span class="status-text">{{ t('home.insights.attention') }}</span>
             <span class="status-indicator yellow"></span>
           </div>
         </div>
@@ -70,32 +75,42 @@
 
     <footer class="footer">
       <p class="footer-text">
-        Made with ☕ & 💖 by <span style="font-weight: 600;">Team Tactile</span> | 2026
+        {{ t('home.footer') }}
       </p>
     </footer>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-const diseases = ref([
-  'Parkinson\'s',
-  'Sclerosis',
-  'Pneumonia',
-  'Dysarthia',
-  'Tumors'
-]);
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { useI18n } from 'vue-i18n';
+import LanguageSwitcher from '../components/LanguageSwitcher.vue';
 
-const currentDisease = ref(diseases.value[0]);
+const { t } = useI18n();
+
+const diseaseKeys = ['parkinsons', 'sclerosis', 'pneumonia', 'dysarthria', 'tumors'];
 const currentIndex = ref(0);
 const fadeClass = ref('');
+const currentDisease = computed(() => t(`home.diseaseCycle.${diseaseKeys[currentIndex.value]}`));
+
+const testItems = [
+  { key: 'pneumonia', route: '/scan/pneumonia', delay: 100 },
+  { key: 'parkinsons', route: '/voice/park', delay: 300 },
+  { key: 'brainTumor', route: '/scan/braintumor', delay: 500 },
+  { key: 'lateralSclerosis', route: '/voice/als', delay: 700 },
+  { key: 'dysarthria', route: '/voice/dysarthria', delay: 900 },
+  { key: 'fibrosis', route: '', delay: 1100 },
+  { key: 'lungCancer', route: '', delay: 1300 },
+  { key: 'pneumothorax', route: '', delay: 1400 }
+];
+
 let intervalId = null;
+
 const rotateDisease = () => {
   fadeClass.value = 'fade-out';
   
   setTimeout(() => {
-    currentIndex.value = (currentIndex.value + 1) % diseases.value.length;
-    currentDisease.value = diseases.value[currentIndex.value];
+    currentIndex.value = (currentIndex.value + 1) % diseaseKeys.length;
     fadeClass.value = 'fade-in';
     setTimeout(() => {
       fadeClass.value = '';
@@ -235,6 +250,12 @@ onBeforeUnmount(() => {
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 14px;
+  cursor: pointer;
+}
+
+.tag-disabled {
+  opacity: 0.7;
+  cursor: default;
 }
 
 .recent-insights {

@@ -6,6 +6,7 @@
         <div class="logo">Jiva<span style="font-weight: 400;">lab</span></div>
       </span>
       <div class="header-icons">
+        <LanguageSwitcher />
         <div class="notification-icon">
           <img src="../assets/chat.png" alt="Notifications" class="icon-placeholder" @click="$router.push('/chat')">
         </div>
@@ -37,13 +38,13 @@
           :enter="{ x: 0, opacity: 1, transition: { delay: 100 } }">
           <div class="instruction-number">1</div>
           <div class="instruction-text">
-            <p style="color: #0896B6;">Supported files<span class="highlight"> include JPG, PNG</span></p>
+            <p style="color: #0896B6;">{{ t('scan.supportedFiles') }}<span class="highlight"> {{ t('scan.includesJpgPng') }}</span></p>
           </div>
         </div>
       </div>
 
       <div v-if="selectedFileName" class="selected-file">
-        <p>Selected: {{ selectedFileName }}</p>
+        <p>{{ t('scan.selected') }}: {{ selectedFileName }}</p>
       </div>
 
       <button 
@@ -54,23 +55,23 @@
           :initial="{ x: -50, opacity: 0 }"
           :enter="{ x: 0, opacity: 1, transition: { delay: 300 } }"
       >
-        {{ isLoading ? 'Uploading...' : 'My files are ready' }}
+        {{ isLoading ? t('scan.uploading') : t('scan.ready') }}
       </button>
       <div v-if="apiResponse?.error" class="result-card error-card">
-        <p class="result-title">Upload failed</p>
+        <p class="result-title">{{ t('scan.uploadFailed') }}</p>
         <p class="result-description">{{ apiResponse.error }}</p>
       </div>
 
       <div v-else-if="apiResponse?.predicted_class" class="result-card">
-        <p class="result-title">Prediction result</p>
+        <p class="result-title">{{ t('scan.predictionResult') }}</p>
         <p class="result-value">{{ apiResponse.predicted_class }}</p>
         <p v-if="pneumoniaProbability !== null" class="result-description">
-          Pneumonia probability: {{ pneumoniaProbability }}%
+          {{ t('scan.pneumoniaProbability') }}: {{ pneumoniaProbability }}%
         </p>
       </div>
 
       <div v-else-if="apiResponse?.message" class="result-card">
-        <p class="result-title">Upload complete</p>
+        <p class="result-title">{{ t('scan.uploadComplete') }}</p>
         <p class="result-description">{{ apiResponse.message }}</p>
       </div>
     </div>
@@ -79,10 +80,13 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import LanguageSwitcher from '../components/LanguageSwitcher.vue';
 
 import { useRoute } from "vue-router"
 const route = useRoute()
 const disease = route.params.disease
+const { t } = useI18n();
 
 const fileInput = ref(null);
 const hasImage = ref(false);
@@ -165,7 +169,7 @@ const uploadImage = async () => {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(downloadUrl);
 
-      apiResponse.value = { message: 'Report generated successfully. Download started.' };
+      apiResponse.value = { message: t('scan.reportGenerated') };
       return;
     }
 
@@ -175,7 +179,7 @@ const uploadImage = async () => {
     try {
       data = JSON.parse(responseText);
     } catch {
-      throw new Error(responseText || 'Unexpected response format from server.');
+      throw new Error(responseText || t('scan.unexpectedResponse'));
     }
 
     apiResponse.value = data;
@@ -184,7 +188,7 @@ const uploadImage = async () => {
   } catch (error) {
     console.error('Error uploading image:', error);
     apiResponse.value = { error: error.message };
-    alert('Error uploading image: ' + error.message);
+    alert(`${t('scan.uploadError')}: ${error.message}`);
   } finally {
     isLoading.value = false;
   }

@@ -6,6 +6,7 @@
         <div class="logo">Jiva<span style="font-weight: 400;">lab</span></div>
       </span>
       <div class="header-icons">
+                <LanguageSwitcher />
         <div class="notification-icon">
           <img src="../assets/chat.png" alt="Notifications" class="icon-placeholder" @click="$router.push('/chat')">
         </div>
@@ -22,16 +23,16 @@
             </div>
             <h2 class="profile-name">Jezwin Sunsi</h2>
             <p class="profile-email">jeswinsunsi@gmail.com</p>
-            <button class="edit-profile-button">Edit Profile</button>
+            <button class="edit-profile-button">{{ t('profile.editProfile') }}</button>
         </div>
 
         <div class="card" style="padding: 0rem 1rem;">
-            <h3 class="section-title">Account</h3>
+            <h3 class="section-title">{{ t('profile.account') }}</h3>
 
             <div class="menu-item">
                 <div class="menu-item-left">
                     <span class="icon">👤</span>
-                    <span>Personal Information</span>
+                    <span>{{ t('profile.personalInformation') }}</span>
                 </div>
                 <span class="chevron">›</span>
             </div>
@@ -39,7 +40,7 @@
             <div class="menu-item">
                 <div class="menu-item-left">
                     <span class="icon">⚙️</span>
-                    <span>Settings</span>
+                    <span>{{ t('profile.settings') }}</span>
                 </div>
                 <span class="chevron">›</span>
             </div>
@@ -47,7 +48,7 @@
             <div class="menu-item">
                 <div class="menu-item-left">
                     <span class="icon">🔔</span>
-                    <span>Notifications</span>
+                    <span>{{ t('profile.notifications') }}</span>
                 </div>
                 <span class="chevron">›</span>
             </div>
@@ -55,7 +56,7 @@
             <div class="menu-item">
                 <div class="menu-item-left">
                     <span class="icon">🛡️</span>
-                    <span>Privacy & Security</span>
+                    <span>{{ t('profile.privacySecurity') }}</span>
                 </div>
                 <span class="chevron">›</span>
             </div>
@@ -63,12 +64,12 @@
 
         <span>
             <div class="card ">
-            <h3 class="section-title">Preferences</h3>
+            <h3 class="section-title">{{ t('profile.preferences') }}</h3>
 
             <div class="toggle-item">
                 <div class="toggle-item-left">
-                    <h4 class="toggle-title">Push Notifications</h4>
-                    <p class="toggle-description">Receive alerts about your analysis</p>
+                    <h4 class="toggle-title">{{ t('profile.pushNotifications') }}</h4>
+                    <p class="toggle-description">{{ t('profile.pushNotificationsDesc') }}</p>
                 </div>
                 <label class="toggle">
                     <input type="checkbox" checked>
@@ -78,8 +79,8 @@
 
             <div class="toggle-item">
                 <div class="toggle-item-left">
-                    <h4 class="toggle-title">Analysis Reminders</h4>
-                    <p class="toggle-description">Get reminded to perform regular checks</p>
+                    <h4 class="toggle-title">{{ t('profile.analysisReminders') }}</h4>
+                    <p class="toggle-description">{{ t('profile.analysisRemindersDesc') }}</p>
                 </div>
                 <label class="toggle">
                     <input type="checkbox" checked>
@@ -89,8 +90,8 @@
 
             <div class="toggle-item">
                 <div class="toggle-item-left">
-                    <h4 class="toggle-title">Data Sharing</h4>
-                    <p class="toggle-description">Share anonymous data to improve the service</p>
+                    <h4 class="toggle-title">{{ t('profile.dataSharing') }}</h4>
+                    <p class="toggle-description">{{ t('profile.dataSharingDesc') }}</p>
                 </div>
                 <label class="toggle">
                     <input type="checkbox">
@@ -106,7 +107,10 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n';
+import LanguageSwitcher from '../components/LanguageSwitcher.vue';
 
+const { t } = useI18n();
 </script>
 
 <style scoped>
