@@ -17,6 +17,7 @@
 
     <div class="content-card">
       <div class="red-top"></div>
+      <p v-if="uploadHintText" class="upload-hint">{{ uploadHintText }}</p>
       <div class="mic-icon-container" @click="triggerFileInput">
         <div class="mic-icon">
           <img src="../assets/upload.png" alt="Upload" class="mic-icon-placeholder">
@@ -196,7 +197,34 @@ const pneumoniaProbability = computed(() => {
     return null;
   }
 
-  return Math.floor(Math.random() * 31) + 70;
+  const rawProbability =
+    apiResponse.value.pneumonia_probability_percent ??
+    apiResponse.value.pneumonia_probability;
+
+  if (typeof rawProbability === 'string') {
+    const parsed = Number(rawProbability.replace('%', '').trim());
+    return Number.isFinite(parsed) ? Math.round(parsed) : null;
+  }
+
+  if (typeof rawProbability === 'number') {
+    return rawProbability <= 1
+      ? Math.round(rawProbability * 100)
+      : Math.round(rawProbability);
+  }
+
+  return null;
+});
+
+const uploadHintText = computed(() => {
+  if (disease === 'pneumonia') {
+    return t('scan.uploadHintPneumonia');
+  }
+
+  if (disease === 'braintumor') {
+    return t('scan.uploadHintBrainTumor');
+  }
+
+  return '';
 });
 </script>
 
@@ -285,6 +313,15 @@ const pneumoniaProbability = computed(() => {
   align-items: center;
   margin-bottom: 16px;
   cursor: pointer;
+}
+
+.upload-hint {
+  margin: 0 1.4rem 0.9rem;
+  text-align: center;
+  color: #0d4f5d;
+  font-size: 0.86rem;
+  font-weight: 500;
+  line-height: 1.25rem;
 }
 
 .title {

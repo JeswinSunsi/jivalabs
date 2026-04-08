@@ -87,6 +87,8 @@ export default {
   scan: {
     supportedFiles: 'మద్దతు ఉన్న ఫైళ్లు',
     includesJpgPng: 'JPG, PNG ఉన్నాయి',
+    uploadHintPneumonia: 'ఛాతీ X-ray చిత్రం (JPG లేదా PNG) అప్లోడ్ చేయండి.',
+    uploadHintBrainTumor: 'మెదడు MRI స్కాన్ చిత్రం (JPG లేదా PNG) అప్లోడ్ చేయండి.',
     selected: 'ఎంచుకున్నవి',
     ready: 'నా ఫైళ్లు సిద్ధంగా ఉన్నాయి',
     uploading: 'అప్లోడ్ అవుతోంది...',

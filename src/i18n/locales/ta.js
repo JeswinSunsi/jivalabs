@@ -87,6 +87,8 @@ export default {
   scan: {
     supportedFiles: 'ஆதரிக்கப்படும் கோப்புகள்',
     includesJpgPng: 'JPG, PNG அடங்கும்',
+    uploadHintPneumonia: 'மார்பு X-ray படம் (JPG அல்லது PNG) பதிவேற்றவும்.',
+    uploadHintBrainTumor: 'மூளை MRI ஸ்கேன் படம் (JPG அல்லது PNG) பதிவேற்றவும்.',
     selected: 'தேர்ந்தெடுக்கப்பட்டது',
     ready: 'என் கோப்புகள் தயாராக உள்ளன',
     uploading: 'பதிவேற்றப்படுகிறது...',

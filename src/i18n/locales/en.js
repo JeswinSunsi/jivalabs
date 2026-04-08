@@ -85,8 +85,10 @@ export default {
     dataSharingDesc: 'Share anonymous data to improve the service'
   },
   scan: {
-    supportedFiles: 'Supported files',
+    supportedFiles: 'Supported files ',
     includesJpgPng: 'include JPG, PNG',
+    uploadHintPneumonia: 'Upload a chest X-ray image against suitable light.',
+    uploadHintBrainTumor: 'Upload a brain MRI image against suitable light.',
     selected: 'Selected',
     ready: 'My files are ready',
     uploading: 'Uploading...',

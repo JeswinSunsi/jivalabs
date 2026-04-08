@@ -87,6 +87,8 @@ export default {
   scan: {
     supportedFiles: 'समर्थित फाइलें',
     includesJpgPng: 'JPG, PNG शामिल',
+    uploadHintPneumonia: 'छाती का X-ray चित्र (JPG या PNG) अपलोड करें।',
+    uploadHintBrainTumor: 'ब्रेन MRI स्कैन चित्र (JPG या PNG) अपलोड करें।',
     selected: 'चयनित',
     ready: 'मेरी फाइलें तैयार हैं',
     uploading: 'अपलोड हो रहा है...',
