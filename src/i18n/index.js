@@ -2,9 +2,10 @@ import { createI18n } from 'vue-i18n';
 import en from './locales/en';
 import hi from './locales/hi';
 import ta from './locales/ta';
+import te from './locales/te';
 
 export const LOCALE_STORAGE_KEY = 'jivalab-locale';
-export const SUPPORTED_LOCALES = ['en', 'hi', 'ta'];
+export const SUPPORTED_LOCALES = ['en', 'hi', 'ta', 'te'];
 
 const resolveInitialLocale = () => {
   if (typeof window === 'undefined') {
@@ -31,7 +32,8 @@ const i18n = createI18n({
   messages: {
     en,
     hi,
-    ta
+    ta,
+    te
   }
 });
 

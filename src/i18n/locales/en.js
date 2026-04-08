@@ -4,7 +4,8 @@ export default {
     options: {
       en: 'English',
       hi: 'Hindi',
-      ta: 'Tamil'
+      ta: 'Tamil',
+      te: 'Telugu'
     }
   },
   common: {
@@ -59,7 +60,7 @@ export default {
       normal: 'Normal',
       attention: 'Attention'
     },
-    footer: 'Made with care by Team Tactile | 2026'
+    footer: 'Made with care by Team 10 | 2026'
   },
   chat: {
     notice: "Welcome to Jivalab\'s personal healthcare assistant. Stay mindful and secure.",

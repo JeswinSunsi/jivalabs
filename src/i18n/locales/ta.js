@@ -4,7 +4,8 @@ export default {
     options: {
       en: 'English',
       hi: 'हिन्दी',
-      ta: 'தமிழ்'
+      ta: 'தமிழ்',
+      te: 'తెలుగు'
     }
   },
   common: {
@@ -59,7 +60,7 @@ export default {
       normal: 'சாதாரணம்',
       attention: 'கவனம்'
     },
-    footer: 'Team Tactile அன்புடன் உருவாக்கியது | 2026'
+    footer: 'Team 10 அன்புடன் உருவாக்கியது | 2026'
   },
   chat: {
     notice: 'Jivalab தனிப்பட்ட சுகாதார உதவியாளருக்கு வரவேற்கிறோம். கவனமாகவும் பாதுகாப்பாகவும் இருங்கள்.',

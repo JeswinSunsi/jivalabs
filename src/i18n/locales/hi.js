@@ -4,7 +4,8 @@ export default {
     options: {
       en: 'English',
       hi: 'हिन्दी',
-      ta: 'தமிழ்'
+      ta: 'தமிழ்',
+      te: 'తెలుగు'
     }
   },
   common: {

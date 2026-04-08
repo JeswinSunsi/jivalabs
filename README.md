@@ -1,4 +1,4 @@
-# Jiva AI - Team Tactile
+# Jiva AI - Team 10
 
 ## Overview
 This project offers a suite of AI tools for healthcare professionals, combining advanced technologies to enhance diagnosis and improve patient care:
