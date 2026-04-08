@@ -6,7 +6,6 @@
         <div class="logo">Jiva<span style="font-weight: 400;">lab</span></div>
       </span>
       <div class="header-icons">
-                <LanguageSwitcher />
         <div class="notification-icon">
           <img src="../assets/chat.png" alt="Notifications" class="icon-placeholder" @click="$router.push('/chat')">
         </div>
@@ -97,6 +96,13 @@
                     <input type="checkbox">
                     <span class="toggle-slider"></span>
                 </label>
+            </div>
+
+            <div class="toggle-item language-item">
+                <div class="toggle-item-left">
+                    <h4 class="toggle-title">{{ t('language.label') }}</h4>
+                </div>
+                <LanguageSwitcher />
             </div>
         </div>
         </span>
@@ -260,6 +266,31 @@ const { t } = useI18n();
     margin: 5px 0 0 0;
     font-size: 12px;
     color: #666;
+}
+
+.language-item {
+    align-items: center;
+}
+
+.language-item :deep(.language-switcher) {
+    display: inline-flex;
+    align-items: center;
+}
+
+.language-item :deep(.language-label) {
+    display: none;
+}
+
+.language-item :deep(.language-select) {
+    border: 1px solid #d9e6ea;
+    border-radius: 0.45rem;
+    background-color: #fff;
+    color: #4f6470;
+    font-size: 0.8rem;
+    font-weight: 600;
+    height: 2rem;
+    min-width: 6.6rem;
+    padding: 0 0.5rem;
 }
 
 .toggle {

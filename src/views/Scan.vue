@@ -6,7 +6,6 @@
         <div class="logo">Jiva<span style="font-weight: 400;">lab</span></div>
       </span>
       <div class="header-icons">
-        <LanguageSwitcher />
         <div class="notification-icon">
           <img src="../assets/chat.png" alt="Notifications" class="icon-placeholder" @click="$router.push('/chat')">
         </div>
@@ -81,7 +80,6 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import LanguageSwitcher from '../components/LanguageSwitcher.vue';
 
 import { useRoute } from "vue-router"
 const route = useRoute()

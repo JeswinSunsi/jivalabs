@@ -1,10 +1,6 @@
 <template>
     <div class="health-answers">
       <div class="content-container">
-        <div class="intro-actions">
-          <LanguageSwitcher />
-        </div>
-
         <div class="header-section">
           <h1 class="main-title">{{ t('intro.title') }}</h1>
           <h2 class="subtitle">{{ t('intro.subtitle') }}</h2>
@@ -52,7 +48,6 @@
   <script setup>
   import { computed } from 'vue';
   import { useI18n } from 'vue-i18n';
-  import LanguageSwitcher from '../components/LanguageSwitcher.vue';
 
   const { t } = useI18n();
 
@@ -91,12 +86,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
-  .intro-actions {
-    display: flex;
-    justify-content: flex-end;
-    padding: 1rem 1.5rem 0;
-  }
-  
   .header-section {
     margin-bottom: 1rem;
     padding: 2rem 1.5rem;
