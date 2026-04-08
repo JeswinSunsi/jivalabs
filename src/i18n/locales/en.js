@@ -3,7 +3,8 @@ export default {
     label: 'Language',
     options: {
       en: 'English',
-      es: 'Spanish'
+      hi: 'Hindi',
+      ta: 'Tamil'
     }
   },
   common: {

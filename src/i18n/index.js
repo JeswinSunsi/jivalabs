@@ -1,9 +1,10 @@
 import { createI18n } from 'vue-i18n';
 import en from './locales/en';
-import es from './locales/es';
+import hi from './locales/hi';
+import ta from './locales/ta';
 
 export const LOCALE_STORAGE_KEY = 'jivalab-locale';
-export const SUPPORTED_LOCALES = ['en', 'es'];
+export const SUPPORTED_LOCALES = ['en', 'hi', 'ta'];
 
 const resolveInitialLocale = () => {
   if (typeof window === 'undefined') {
@@ -29,7 +30,8 @@ const i18n = createI18n({
   fallbackLocale: 'en',
   messages: {
     en,
-    es
+    hi,
+    ta
   }
 });
 
